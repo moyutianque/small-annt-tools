@@ -34,16 +34,16 @@ class ImageViewer(QWidget):
 
         # match button
         self.button = QPushButton("Match")
-        self.button.clicked.connect(self.matched)
+        self.button.clicked.connect(lambda: self.match_level(1))
         # mismatch button
         self.button_mismatched = QPushButton("Mismatch")
-        self.button_mismatched.clicked.connect(self.mismatched)
+        self.button_mismatched.clicked.connect(lambda: self.match_level(4))
         
         # two borderline
         self.button_match_b = QPushButton("Above borderline")
-        self.button_match_b.clicked.connect(self.match_b)
+        self.button_match_b.clicked.connect(lambda: self.match_level(2))
         self.button_mismatch_b = QPushButton("Below borderline")
-        self.button_mismatch_b.clicked.connect(self.mismatch_b)
+        self.button_mismatch_b.clicked.connect(lambda: self.match_level(3))
 
         #self.text = QLabel("Dear Annotator, <font color='red'>WELCOME!</font><br>Example: The man is sleepling on the chair")
         self.text = QLabel("Dear Annotator, <font color='red'>WELCOME!</font><br>Example: Young people are riding through the steel forest.")
@@ -92,8 +92,12 @@ class ImageViewer(QWidget):
             writer.write(d_info)
 
     @QtCore.pyqtSlot()
-    def matched(self):
+    def match_level(self, match_level):
         try:
+            if self.cnt != 0:
+                self.annotate(self.cnt, match_level, self.pre_obj)
+            self.cnt += 1
+
             obj = self.reader.read()
             image_file = obj['image_file']
             self.text.setText(self.format_text(obj))
@@ -101,62 +105,11 @@ class ImageViewer(QWidget):
 
             self.image_label.setPixmap(QPixmap(osp.join(self.annt_path, image_file)).scaledToHeight(420))
             self.image_label.setAlignment(QtCore.Qt.AlignCenter)
-            if self.cnt != 0:
-                self.annotate(self.cnt, 1, obj)
-            self.cnt += 1
+            self.pre_obj = obj
         except:
             self.reader.close()
             self.text.setText("End of file, please close the windows")
             
-    @QtCore.pyqtSlot()
-    def match_b(self):
-        try:
-            obj = self.reader.read()
-            image_file = obj['image_file']
-            self.text.setText(self.format_text(obj))
-            self.text.setAlignment(QtCore.Qt.AlignLeft)
-
-            self.image_label.setPixmap(QPixmap(osp.join(self.annt_path, image_file)).scaledToHeight(420))
-            self.image_label.setAlignment(QtCore.Qt.AlignCenter)
-            if self.cnt != 0:
-                self.annotate(self.cnt, 2, obj)
-            self.cnt += 1
-        except:
-            self.reader.close()
-            self.text.setText("End of file, please close the windows")
-
-    @QtCore.pyqtSlot()
-    def mismatch_b(self):
-        try:
-            obj = self.reader.read()
-            image_file = obj['image_file']
-            self.text.setText(self.format_text(obj))
-            self.text.setAlignment(QtCore.Qt.AlignLeft)
-
-            self.image_label.setPixmap(QPixmap(osp.join(self.annt_path, image_file)).scaledToHeight(420))
-            self.image_label.setAlignment(QtCore.Qt.AlignCenter)
-            if self.cnt != 0:
-                self.annotate(self.cnt, 3, obj)
-            self.cnt += 1
-        except:
-            self.reader.close()
-            self.text.setText("End of file, please close the windows")
-
-    @QtCore.pyqtSlot()
-    def mismatched(self):
-        try:
-            obj = self.reader.read()
-            image_file = obj['image_file']
-            self.text.setText(self.format_text(obj))
-            self.text.setAlignment(QtCore.Qt.AlignLeft)
-            self.image_label.setPixmap(QPixmap(osp.join(self.annt_path, image_file)).scaledToHeight(420))
-            self.image_label.setAlignment(QtCore.Qt.AlignCenter)
-            if self.cnt != 0:
-                self.annotate(self.cnt, 4, obj)
-            self.cnt += 1
-        except:
-            self.reader.close()
-            self.text.setText("End of file, please close the windows")
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

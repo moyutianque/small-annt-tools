@@ -113,8 +113,8 @@ class ImageViewer(QWidget):
 
         item_id, match_level = self.sorted_diff_list[self.cnt]
         
-        image_file = self.data[item_id]['image_file']
-        self.text.setText(self.format_text(self.data[item_id], match_level, self.data1[item_id], self.data2[item_id]))
+        image_file = self.data[item_id-1]['image_file']
+        self.text.setText(self.format_text(self.data[item_id-1], match_level, self.data1[item_id], self.data2[item_id]))
         self.text.setAlignment(QtCore.Qt.AlignLeft)
 
         self.image_label.setPixmap(QPixmap(osp.join(self.annt_path, image_file)).scaledToHeight(420))
