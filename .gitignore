@@ -14,6 +14,8 @@ job-*
 
 # png, json, jpg
 *.png
+*.jpg
+*.jsonl*
 .DS_Store
 *.list
 
