@@ -89,7 +89,7 @@ class ImageViewer(QWidget):
     def annotate(self, idx, value, d_info):
         # append new annotation to csv file
         with jsonlines.open(self.out_file+f'.{value}', mode='a') as writer:
-            d_info.update({"match level": value})
+            d_info.update({"match level": value, "id":idx})
             writer.write(d_info)
 
     @QtCore.pyqtSlot()
