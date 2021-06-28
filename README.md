@@ -21,7 +21,7 @@ nltk.download('punkt')
 
 ## Run annt script
 
-1. Please change the annt path @line 113 of ```pyqt_annt.py```
+1. Please change the annt path @line 163 of ```pyqt_annt.py```
 
 2. run the following
 ```bash

@@ -57,8 +57,7 @@ class ImageViewer(QWidget):
         self.setLayout(self.main_layout)  # set layot
         self.cnt = 0
 
-    @staticmethod
-    def format_text(obj):
+    def format_text(self, obj):
         sent = obj['text']
         words_ori = word_tokenize(sent)
         words = [ps.stem(i) for i in words_ori]
@@ -69,7 +68,7 @@ class ImageViewer(QWidget):
         vb = obj['frame_info']['verb']
         verb_idx = words.index(ps.stem(vb))
 
-        log_str = ""
+        log_str = f"[Num: {self.cnt}]<br>"
         log_str += f"VERB: <font color='red'>{vb}</font><br>"
         log_str += f"ARGS: "
         for k,v in arguments.items():
