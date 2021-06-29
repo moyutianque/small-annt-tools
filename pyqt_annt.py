@@ -48,6 +48,8 @@ class ImageViewer(QWidget):
         #self.text = QLabel("Dear Annotator, <font color='red'>WELCOME!</font><br>Example: The man is sleepling on the chair")
         self.text = QLabel("Dear Annotator, <font color='red'>WELCOME!</font><br>Example: Young people are riding through the steel forest.")
         self.text.setAlignment(QtCore.Qt.AlignCenter)
+        self.text.setTextInteractionFlags(QtCore.Qt.TextSelectableByMouse) 
+
         self.main_layout.addWidget(self.text)
         self.main_layout.addWidget(self.button)
         self.main_layout.addWidget(self.button_match_b)
@@ -113,6 +115,6 @@ class ImageViewer(QWidget):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    viewer = ImageViewer('./annt_v1')
+    viewer = ImageViewer('./annt_v1.2')
     viewer.show()
     app.exec_()
