@@ -20,7 +20,7 @@ class ImageViewer(QWidget):
         self.setup_ui()
         self.annt_path = annt_path
 
-        out_root = f'./annotator_choice_{int(time.time())}'
+        out_root = f'{annt_path}_choice_{int(time.time())}'
         os.makedirs(out_root, exist_ok=True)
         self.out_file = osp.join(out_root, out_file)
         self.reader = jsonlines.open(osp.join(annt_path, 'annt.jsonl'))
